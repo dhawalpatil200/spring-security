@@ -1,6 +1,6 @@
 package com.dhawal.security.controllers;
 
-import com.dhawal.security.models.User;
+import com.dhawal.security.models.UserEntity;
 import com.dhawal.security.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class DemoController {
     }
 
     @GetMapping("/users")
-    public List<User> getAllUsers() {
+    public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 }

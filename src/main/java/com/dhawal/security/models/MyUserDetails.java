@@ -9,10 +9,10 @@ import java.util.Collections;
 
 public class MyUserDetails implements UserDetails {
 
-    private User user;
+    private UserEntity userEntity;
 
-    public MyUserDetails(User user) {
-        this.user = user;
+    public MyUserDetails(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     @Override
@@ -22,11 +22,11 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return userEntity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return userEntity.getUsername();
     }
 }
