@@ -38,6 +38,6 @@ public class UserService {
         ));
 
         // Generate and return JWT token
-        return jwtService.generateToken(user.getPassword());
+        return jwtService.generateToken(user.getUsername());
     }
 }
