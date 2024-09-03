@@ -4,6 +4,7 @@ import com.dhawal.security.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -39,7 +40,10 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(request -> request
                 .requestMatchers("login", "register")
                 .permitAll()
-                .anyRequest().authenticated());
+                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+        );
 //        http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

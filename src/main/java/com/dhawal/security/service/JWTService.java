@@ -2,6 +2,7 @@ package com.dhawal.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,8 +19,7 @@ import java.util.function.Function;
 @Component
 public class JWTService {
 
-    private String secretKey = "NvPgEBo1bgU7gqS5mWncEI3zALeNqV8DSU64Si63SU9yVsfdsfsfwsfsdfssd890WFpBiGQOOaYKsH";
-
+    private final Key secretKey = Jwts.SIG.HS256.key().build();
     public String generateToken(String username) {
         Map<String, Objects> claims = new HashMap<>();
 
@@ -30,14 +30,14 @@ public class JWTService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() * 60 * 60 * 30))
                 .and()
-                .signWith(getKey())
+                .signWith(secretKey)
                 .compact();
     }
 
-    private Key getKey() {
-        byte[] keyBytes = Decoders.BASE64URL.decode(secretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
+//    private Key getKey() {
+//        byte[] keyBytes = Decoders.BASE64URL.decode(secretKey);
+//        return Keys.hmacShaKeyFor(keyBytes);
+//    }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -46,7 +46,7 @@ public class JWTService {
 
     public Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith((SecretKey) getKey())
+                .verifyWith((SecretKey) secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();

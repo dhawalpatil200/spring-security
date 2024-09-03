@@ -8,24 +8,25 @@ public class DemoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long d_id;
+    @Column(name = "d_id")
+    private long id;
 
     @Column
     private String demoitem;
 
     public DemoEntity() {};
 
-    public DemoEntity(long d_id, String demoitem) {
-        this.d_id = d_id;
+    public DemoEntity(long id, String demoitem) {
+        this.id = id;
         this.demoitem = demoitem;
     }
 
-    public long getD_id() {
-        return d_id;
+    public long getId() {
+        return id;
     }
 
-    public void setD_id(long d_id) {
-        this.d_id = d_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDemoitem() {

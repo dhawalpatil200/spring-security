@@ -20,22 +20,22 @@ public class DemoController {
         return "Hello world " + request.getSession().getId();
     }
 
-    @GetMapping("/demos")
+    @GetMapping("/user/demos")
     public List<DemoEntity> getAllDemos() {
         return demoService.getAllDemos();
     }
 
-    @GetMapping("/demos/{id}")
+    @GetMapping("/user/demos/{id}")
     public DemoEntity getDemoById(@PathVariable Long id) {
         return demoService.getDemoById(id);
     }
 
-    @PostMapping("/demos")
+    @PostMapping("/admin/demos")
     public DemoEntity createDemo(@RequestBody DemoEntity demoEntity) {
         return demoService.createDemo(demoEntity);
     }
 
-    @DeleteMapping("/demos/{id}")
+    @DeleteMapping("/admin/demos/{id}")
     public void deleteDemo(@PathVariable Long id) {
         demoService.deleteDemo(id);
     }
