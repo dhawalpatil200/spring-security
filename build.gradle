@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'io.freefair.lombok' version '6.6'
 }
 
 group = 'com.dhawal'
@@ -36,6 +37,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Extras
+	implementation 'org.projectlombok:lombok:1.18.26'  // Add this line for Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.26'  // Optional, helps with annotation processing
+	annotationProcessor 'org.projectlombok:lombok:1.18.26'  // Enable annotation processing
 }
 
 tasks.named('test') {

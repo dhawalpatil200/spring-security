@@ -53,4 +53,8 @@ public class UserService {
         // Generate and return JWT token
         return jwtService.generateToken(user.getUsername());
     }
+
+    public UserEntity findByUserId(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found: " + userId));
+    }
 }

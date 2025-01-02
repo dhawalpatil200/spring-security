@@ -1,8 +1,14 @@
 package com.dhawal.security.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "demomaster")
 public class DemoEntity {
 
@@ -14,26 +20,7 @@ public class DemoEntity {
     @Column
     private String demoitem;
 
-    public DemoEntity() {};
-
-    public DemoEntity(long id, String demoitem) {
-        this.id = id;
-        this.demoitem = demoitem;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getDemoitem() {
-        return demoitem;
-    }
-
-    public void setDemoitem(String demoitem) {
+    public DemoEntity(String demoitem) {
         this.demoitem = demoitem;
     }
 }

@@ -1,5 +1,6 @@
 package com.dhawal.security.security;
 
+import com.dhawal.security.models.MyUserDetails;
 import com.dhawal.security.service.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class JwtFilter extends OncePerRequestFilter {
+public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Autowired
     private JWTService jwtService;
@@ -40,7 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            MyUserDetails userDetails = (MyUserDetails) userDetailsService.loadUserByUsername(username);
             if(jwtService.validateToken(token, userDetails)) {
                 System.out.println("Token validated for user : " + username);
                 UsernamePasswordAuthenticationToken authToken =
@@ -48,6 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+                request.setAttribute("userId", userDetails.getUserId());
                 System.out.println("User authenticated : " + username);
             }
         }

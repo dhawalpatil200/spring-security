@@ -33,4 +33,6 @@ public class MyUserDetails implements UserDetails {
     public String getUsername() {
         return userEntity.getUsername();
     }
+
+    public Long getUserId() {return  userEntity.getUserId(); };
 }

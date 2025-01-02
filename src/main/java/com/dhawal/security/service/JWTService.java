@@ -1,10 +1,13 @@
 package com.dhawal.security.service;
 
+import com.dhawal.security.security.JwtKeyProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +22,15 @@ import java.util.function.Function;
 @Component
 public class JWTService {
 
-    private final Key secretKey = Jwts.SIG.HS256.key().build();
+    private Key secretKey = Jwts.SIG.HS256.key().build();
+
+    @Autowired
+    private JwtKeyProvider keyProvider;
+
+    @PostConstruct
+    void init() {
+        secretKey = keyProvider.getSecretKey();
+    }
     public String generateToken(String username) {
         Map<String, Objects> claims = new HashMap<>();
 
