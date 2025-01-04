@@ -9,6 +9,8 @@ public interface CategoryService {
 
     Category findByName(String name);
 
+    Category findById(Long id);
+
     List<Category> getCategoriesByType(TransactionType type);
 
     List<Category> getAllIncomeCategories();

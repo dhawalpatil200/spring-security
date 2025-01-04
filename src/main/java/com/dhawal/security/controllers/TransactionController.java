@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/user/transactions")
 public class TransactionController {
 
     @Autowired
@@ -53,18 +53,15 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<TransactionResponse> createTransaction(@RequestBody TransactionRequest request, @RequestAttribute Long userId) {
-        // Step 1: Validate and map transactionType
-        TransactionType transactionType = TransactionType.fromString(request.getTransactionType().toUpperCase());
 
-        Category category = categoryService.findByName(request.getCategoryName());
+        Category category = categoryService.findById(request.getCategoryId());
         UserEntity userEntity = userService.findByUserId(userId);
-
 
         Transaction transaction = new Transaction();
         transaction.setTitle(request.getTitle());
         transaction.setDescription(request.getDescription());
         transaction.setAmount(request.getAmount());
-        transaction.setType(transactionType);
+        transaction.setType(category.getType());
         transaction.setCategory(category);
         transaction.setUser(userEntity);
 

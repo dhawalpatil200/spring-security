@@ -20,6 +20,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category findById(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found of id : " + id));
+    }
+
+    @Override
     public List<Category> getCategoriesByType(TransactionType type) {
         return categoryRepository.findByType(type);
     }

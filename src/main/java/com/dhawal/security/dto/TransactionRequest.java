@@ -10,7 +10,6 @@ public class TransactionRequest {
     private String title;
     private String description;
     private Double amount;
-    private String transactionType;
-    private String categoryName;
+    private Long categoryId;
 
 }

@@ -1,5 +1,6 @@
 package com.dhawal.security.controllers;
 
+import com.dhawal.security.dto.LoginResponse;
 import com.dhawal.security.models.UserEntity;
 import com.dhawal.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody UserEntity user) {
-        return userService.verify(user);
+    public LoginResponse login(@RequestBody UserEntity user) {
+        String token =  userService.verify(user);
+        LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        return response;
     }
 }
