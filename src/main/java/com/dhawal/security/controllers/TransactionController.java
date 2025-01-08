@@ -53,20 +53,11 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<TransactionResponse> createTransaction(@RequestBody TransactionRequest request, @RequestAttribute Long userId) {
-
         Category category = categoryService.findById(request.getCategoryId());
         UserEntity userEntity = userService.findByUserId(userId);
 
-        Transaction transaction = new Transaction();
-        transaction.setTitle(request.getTitle());
-        transaction.setDescription(request.getDescription());
-        transaction.setAmount(request.getAmount());
-        transaction.setType(category.getType());
-        transaction.setCategory(category);
-        transaction.setUser(userEntity);
-
+        Transaction transaction = transactionMapper.toTransaction(request, category, userEntity);
         Transaction savedTransaction = transactionService.createTransaction(transaction);
-
         TransactionResponse response = transactionMapper.toTransactionResponse(savedTransaction);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

@@ -2,6 +2,7 @@ package com.dhawal.security.models;
 
 import com.dhawal.security.utils.TransactionType;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,7 +1,10 @@
 package com.dhawal.security.utils;
 
+import com.dhawal.security.dto.TransactionRequest;
 import com.dhawal.security.dto.TransactionResponse;
+import com.dhawal.security.models.Category;
 import com.dhawal.security.models.Transaction;
+import com.dhawal.security.models.UserEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +22,17 @@ public class TransactionMapper {
         response.setCategoryName(transaction.getCategory().getName());
         response.setCreatedAt(transaction.getCreatedAt());
         return response;
+    }
+
+    public Transaction toTransaction(TransactionRequest request, Category category, UserEntity user) {
+        Transaction transaction = new Transaction();
+        transaction.setTitle(request.getTitle());
+        transaction.setDescription(request.getDescription());
+        transaction.setAmount(request.getAmount());
+        transaction.setType(category.getType());
+        transaction.setCategory(category);
+        transaction.setUser(user);
+        return transaction;
     }
 
     public List<TransactionResponse> toTransactionResponseList(List<Transaction> transactions) {
