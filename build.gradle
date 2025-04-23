@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'io.freefair.lombok' version '6.6'
 }
 
 group = 'com.dhawal'
@@ -18,13 +19,29 @@ repositories {
 }
 
 dependencies {
+	// Spring
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// JWT
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.12.6'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.12.6'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.6'
+
+	// Database
+	runtimeOnly 'org.postgresql:postgresql:42.7.2'
 	runtimeOnly 'com.h2database:h2'
+
+	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Extras
+	implementation 'org.projectlombok:lombok:1.18.26'  // Add this line for Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.26'  // Optional, helps with annotation processing
+	annotationProcessor 'org.projectlombok:lombok:1.18.26'  // Enable annotation processing
 }
 
 tasks.named('test') {
